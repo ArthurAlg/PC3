@@ -1,0 +1,25 @@
+@model PC3.DTO.PostDTO
+
+@{
+    ViewData["Title"] = "Ver Post";
+}
+
+<h1>Detalles del Post</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Id:</dt>
+        <dd class="col-sm-10">@Model.id</dd>
+
+        <dt class="col-sm-2">userId:</dt>
+        <dd class="col-sm-10">@Model.userId</dd>
+
+        <dt class="col-sm-2">title:</dt>
+        <dd class="col-sm-10">@Model.title</dd>
+
+        <dt class="col-sm-2">body:</dt>
+        <dd class="col-sm-10">@Model.body</dd>
+    </dl>
+</div>
+
+<a asp-action="Listar">Volver al listado</a>

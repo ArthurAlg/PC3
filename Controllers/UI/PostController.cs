@@ -22,14 +22,10 @@ namespace PC3.Controllers.UI
             _jsonplaceholder = jsonplaceholder;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Listar()
         {
 
             List<PostDTO> posts =await _jsonplaceholder.GetAll();
-
-            //List<TodoDTO> filtro = todos.Where(todo => todo.userId > 6).ToList();
-
-            //List<TodoDTO> filtro = todos.Where(todo => todo.title.Contains("Tarea")).ToList();
 
             List<PostDTO> filtro = posts
             .Where(post => post.userId == 1)
@@ -38,6 +34,49 @@ namespace PC3.Controllers.UI
             .ToList();
 
             return View(posts);
+        }
+
+        [HttpPost]
+        public IActionResult Crear()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Ver(int? id)
+        {
+            if (id == null){
+                return NotFound();
+            }
+
+            var post = await _jsonplaceholder.GetPostById(id.Value);
+
+            if (post == null){
+                return NotFound();
+            }
+
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Crear([Bind("userId,title,body")] PostDTO post)
+        {
+            if (ModelState.IsValid)
+            {
+                var createdPost = await _jsonplaceholder.CreatePost(post);
+
+                if (createdPost != null)
+                {
+                    // Puedes redirigir a la página de detalles del nuevo post o a donde sea necesario.
+                    return RedirectToAction(nameof(Listar));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Error al crear el post.");
+                }
+            }
+
+            return View(post);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
