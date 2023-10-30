@@ -8,31 +8,24 @@ using System.Collections.Generic;
 using PC3.DTO;
 using PC3.Integrations;
 
-namespace PC3.Controllers.Rest
-{
+namespace PC3.Controllers.Rest{
     [Route("api/posts")]
     [ApiController]
-    public class PostApiController : ControllerBase
-    {
+    public class PostApiController : ControllerBase{
         private readonly JsonplaceholderAPIIntegration _jsonplaceholder;
         private readonly ILogger<PostApiController> _logger;
 
-        public PostApiController(JsonplaceholderAPIIntegration jsonplaceholder, ILogger<PostApiController> logger)
-        {
+        public PostApiController(JsonplaceholderAPIIntegration jsonplaceholder, ILogger<PostApiController> logger){
             _jsonplaceholder = jsonplaceholder;
             _logger = logger;
         }
-
         [HttpGet]
-        public async Task<IActionResult> Listar()
-        {
+        public async Task<IActionResult> Listar(){
             List<PostDTO> posts = await _jsonplaceholder.GetAll();
             return Ok(posts);
         }
-
         [HttpGet("{id}")]
-        public async Task<IActionResult> Ver(int id)
-        {
+        public async Task<IActionResult> Ver(int id){
             var post = await _jsonplaceholder.GetPostById(id);
             if (post == null)
             {
@@ -40,21 +33,16 @@ namespace PC3.Controllers.Rest
             }
             return Ok(post);
         }
-
         [HttpPost]
-        public async Task<IActionResult> Crear([FromBody] PostDTO post)
-        {
+        public async Task<IActionResult> Crear([FromBody] PostDTO post){
             if (post == null)
             {
                 return BadRequest();
             }
-
             return Ok(post);
         }
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Eliminar(int id)
-        {
+        public async Task<IActionResult> Eliminar(int id){
 
             return NoContent(); 
         }
