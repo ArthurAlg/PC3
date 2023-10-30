@@ -1,0 +1,25 @@
+@model PC3.DTO.PostDTO
+
+@{
+    ViewData["Title"] = "Editar Post";
+}
+
+<h1>Editar Post</h1>
+
+<form asp-controller="Post" asp-action="Editar" method="post">
+    <div class="form-group">
+        <label asp-for="userId">User ID:</label>
+        <input asp-for="userId" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="title">Title:</label>
+        <input asp-for="title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="body">Body:</label>
+        <textarea asp-for="body" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>
+
+<a asp-action="Listar">Volver a Lista</a>

@@ -1,0 +1,39 @@
+@model PC3.DTO.PostDTO
+
+@{
+    ViewData["Title"] = "Eliminar Post";
+}
+
+<h1>Eliminar Post</h1>
+
+<p>¿Estás seguro de que deseas eliminar el siguiente post?</p>
+
+<div>
+    <h4>Detalles del Post</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            User ID
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.userId)
+        </dd>
+        <dt class="col-sm-2">
+            Title
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.title)
+        </dd>
+        <dt class="col-sm-2">
+            Body
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.body)
+        </dd>
+    </dl>
+
+    <form asp-controller="Post" asp-action="Eliminar" asp-route-id="@Model.id" method="post">
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Listar">Volver a Lista</a>
+    </form>
+</div>
